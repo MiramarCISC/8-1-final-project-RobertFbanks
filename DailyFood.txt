@@ -1,5 +1,5 @@
 Food Report
-Name Type Quantity Calories Calories per Gram
+Type, Grams, Calories, Calories per Gram
 Protein 100 400.00 4.00
 Carbs 250 1000.00 4.00
 Vegetables 300 150.00 0.50
