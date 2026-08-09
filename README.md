@@ -1,3 +1,4 @@
+[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=24285766)
 # CISC 192 Final Project Template
 
 ## Overview
@@ -95,43 +96,43 @@ Before submitting your final project, update this README.md so it describes your
 ## Course Topics Integrated and Tested
 
 1. Week 1 Program Basics
-   - Code location:
-   - Test location:
+   - Code location: project.cpp
+   - Test location: testWeek1ProgramBasics(), total calories function tested.
 
 2. Week 2 Decisions and Loops
-   - Code location:
-   - Test location:
+   - Code location: project.cpp and main.cpp, if statements, while and for loops.
+   - Test location: testWeek2DecisionsAndLoops(), tests isValid functions.
 
 3. Week 3 Functions and Program Design
-   - Code location:
-   - Test location:
+   - Code location: project.cpp, main.cpp
+   - Test location: testWeek3FunctionsAndProgramDesign(), tests if values can propery be added with adding functions
 
 4. Week 4 Arrays, Searching, and Sorting
-   - Code location:
-   - Test location:
+   - Code location: In arrays section of main.cpp and project.cpp
+   - Test location: testWeek4ArraysSearchingSorting(), adds calorie values to array, and then reads array to add and get total calories
 
 5. Week 5 Strings and Structures
-   - Code location:
-   - Test location:
+   - Code location: main.cpp, project.cpp, and project.hpp, mostly used for foodnames and types.
+   - Test location: testWeek5StringsAndStructures() Sets strings
 
 6. Week 6 Pointers, Dynamic Memory, and Linked Lists
-   - Code location:
-   - Test location:
+   - Code location: project.cpp, added and removed nodes + pointers. 
+   - Test location: testWeek6SimpleLinkedTaskList() Inserts nodes, and removes them
 
 7. Week 7 File I/O and Integration
-   - Code location:
-   - Test location:
+   - Code location: project.cpp, opened the file and analyzed and wrote report into another.
+   - Test location: testWeek7FileBasedInventoryReport(), Opens and writes test files
 ```
 
 ## Final Submission Checklist
 
-- [ ] My project compiles with `make`.
-- [ ] My project runs with `./main`.
-- [ ] My tests run with `make test`.
-- [ ] I deleted or replaced the sample project code.
-- [ ] My project uses class names that are nouns from my own project.
-- [ ] My project integrates all 7 course topics in reachable code.
-- [ ] My project includes at least one unit test per course topic.
-- [ ] My README explains where each topic appears.
-- [ ] My README explains which test verifies each topic.
-- [ ] My code is committed and pushed to GitHub Classroom.
+- [/] My project compiles with `make`.
+- [/] My project runs with `./main`.
+- [/] My tests run with `make test`.
+- [/] I deleted or replaced the sample project code.
+- [/] My project uses class names that are nouns from my own project.
+- [/] My project integrates all 7 course topics in reachable code.
+- [/] My project includes at least one unit test per course topic.
+- [/] My README explains where each topic appears.
+- [/] My README explains which test verifies each topic.
+- [/] My code is committed and pushed to GitHub Classroom.

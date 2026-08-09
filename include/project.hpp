@@ -3,127 +3,130 @@
 
 #include <string>
 
-const double A_MINIMUM = 90.0;
-const double B_MINIMUM = 80.0;
-const double C_MINIMUM = 70.0;
-const double D_MINIMUM = 60.0;
-const int MAX_INVENTORY_ITEMS = 100;
-
-// SAMPLE CODE ONLY:
-// These classes demonstrate course concepts using sample project nouns.
-// Delete or replace these sample classes before final submission.
-
-class ScoreList {
+const int MAX_FOOD_ITEMS = 25;
+// Header file, kept it similar to example, we didn't learn it well, so nothing too new. 
+class FoodarrayList {
 private:
-    double scores[10];
+    double foods[25];
     int count;
 
 public:
-    ScoreList();
+    FoodarrayList();
 
-    bool addScore(double score);
+    bool addcalorie(double calorie);
     int getCount() const;
-    double getScoreAt(int index) const;
+    double getcalorie(int index) const;
 
-    double getTotal() const;
-    double getAverage() const;
-    int findScore(double target) const;
-    void sortAscending();
+    double getTotalcalories() const;
+    double getAveragecalories() const;
+    int findmeal(double target) const;
+    
 
-    static bool isValidScore(double score);
+    static bool isValidcalorie(double calories);
 };
 
-class Student {
+class food {
 private:
-    std::string id;
+    std::string type;
     std::string name;
-    ScoreList scoreList;
+    FoodarrayList foodlist;
 
 public:
-    Student();
-    Student(std::string studentId, std::string studentName);
+    food();
+    food(std::string foodtype, std::string foodname);
 
-    std::string getId() const;
+    std::string gettype() const;
     std::string getName() const;
-    ScoreList& getScoreList();
-    const ScoreList& getScoreList() const;
+    FoodarrayList& getFoodlist();
+    const FoodarrayList& getFoodlist() const;
+    std::string getCalorie() const;
+    
 
-    double getAverage() const;
-    char getLetterGrade() const;
-
-    static bool isValidId(std::string id);
-    static char determineLetterGrade(double average);
+    static bool isValidtype(std::string type);
 };
-
-class Task {
+void sortMeals(food mealArray[], int mealCount);
+class Food {
 private:
+    std::string type;
+    std::string name;
     std::string description;
-    int priority;
-    bool completed;
+    double calories;
+    int mealrating;
+    bool eatentoday;
 
 public:
-    Task();
-    Task(std::string taskDescription, int taskPriority);
+    // Constructors
+    Food();
+    Food(std::string foodDescription, int taskmealrating);
+    Food(std::string foodtype, std::string foodname, double foodcalories, int taskmealrating);
 
-    std::string getDescription() const;
-    int getPriority() const;
-    bool isCompleted() const;
-    void markComplete();
-
-    static bool isValidPriority(int priority);
+    // Getters
+    std::string getType() const;
+    std::string getName() const;
+    double getCalories() const;
+    int getmealrating() const;
+    bool iseaten() const;
+    void markEaten();
+    static bool isValidmealrating(int mealrating);
 };
 
-class TaskNode {
+class FoodNode {
 public:
-    Task data;
-    TaskNode* next;
+    Food data;
+    FoodNode* next;
 
-    TaskNode(Task task);
+    FoodNode(Food task);
 };
 
-class TaskList {
+class foodList {
 private:
-    TaskNode* head;
+    FoodNode* head;
 
 public:
-    TaskList();
-    TaskList(const TaskList& other) = delete;
-    TaskList& operator=(const TaskList& other) = delete;
-    ~TaskList();
+    foodList();
+    foodList(const foodList& other) = delete;
+    foodList& operator=(const foodList& other) = delete;
+    ~foodList();
 
-    void insertFront(Task task);
-    int countTasks() const;
-    TaskNode* findTask(std::string description);
-    const TaskNode* findTask(std::string description) const;
-    bool markTaskComplete(std::string description);
-    int removeCompletedTasks();
+    void insertFront(Food task);
+    int countFoods() const;
+    FoodNode* findFood(std::string description);
+    const FoodNode* findFood(std::string description) const;
+    bool markFoodeaten(std::string description);
+    int removeEatenMeals();
     void clear();
     bool isEmpty() const;
+    void printlistmeals() const;
 };
 
-struct InventoryItem {
-    std::string sku;
+struct Meals {
     std::string name;
-    int quantity;
-    double price;
+    std::string type;
+    int grams;
+    double Calories;
 };
 
-class InventoryReport {
+class FoodReport {
 public:
-    static bool isValidQuantity(int quantity);
-    static bool isValidPrice(double price);
-    static double calculateItemValue(const InventoryItem& item);
+    static bool isValidgrams(int grams);
+    static bool isValidCalories(double Calories);
+    static double calculatecalorieValue(const Meals& item);
 
-    static int readInventoryFile(std::string filename, InventoryItem items[], int maxItems);
-    static bool writeInventoryReport(std::string filename, const InventoryItem items[], int count);
+    static int readFoodFile(std::string filename, Meals items[], int MAX_FOOD_ITEMS);
+    static bool writeFoodReport(std::string filename, const Meals items[], int count);
 
-    static double calculateTotalInventoryValue(const InventoryItem items[], int count);
-    static int findItemBySku(const InventoryItem items[], int count, std::string sku);
-    static int findHighestValueItemIndex(const InventoryItem items[], int count);
+    static double calculateTotalcalories(const Meals items[], int count);
+    static int findItemByname(const Meals items[], int count, std::string name);
+    static int findHighestcalorieIndex(const Meals items[], int count);
 };
 
 bool isValidMenuChoice(int choice);
+bool isValidMenuarrayChoice(int arraychoice);
+bool isValidMenulistChoice(int listchoice);
 void printMenu();
-void printStudent(const Student& student);
+void printmeal(const food& meal);
+
+
+double calculateTotalCalories(const food mealArray[], int mealCount);
 
 #endif
