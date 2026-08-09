@@ -3,8 +3,7 @@
 
 using namespace std;
 
-// Sorry for the maybe one or two commits, I was used to only doing it once per lab.
-// This lab has taken me so long ive been forgetting to commit I'm so sorry. I missed that instruction on the canvus page. 
+// This lab has taken me so long ive been forgetting to commit at all. I'm so sorry. I missed that instruction on the canvus page. 
 
 int main() {
     cout << "This is my final project for CISC 192, a meal tracker." << endl;
@@ -12,6 +11,7 @@ int main() {
     cout << "Meals can be split into separete parts depending on food category." << endl;
     cout << endl;
 
+    // Set all choices and variables only used in main.
     food mealArray[MAX_FOOD_ITEMS];
     foodList LinkedList;
     int arraychoice = -1;
@@ -35,7 +35,7 @@ int main() {
             cin >> choice;
         }
 
-        switch (choice) {
+        switch (choice) { // Array based tracker
             case 1: {
                 do {
                     cout << "Array meal tracker selected" << endl;
@@ -51,6 +51,7 @@ int main() {
 
                     cin >> arraychoice;
 
+                    // Checks if the choice is valid
                     while (!isValidMenuarrayChoice(arraychoice)) {
                         cout << "Invalid choice. Enter 0-5: ";
                         cin >> arraychoice;
@@ -58,7 +59,7 @@ int main() {
                 
                     switch (arraychoice) {
                         case 1: { // Used a bit of help in case 1, wanted to make it user inputable. I belive we didn't learn array imput but wanted it to make the program better.
-                            if (mealCount >= MAX_FOOD_ITEMS) {
+                            if (mealCount >= MAX_FOOD_ITEMS) { // Checks if full
                                 cout << "Array is full! Cannot add more items." << endl;
                             }
                             else {
@@ -69,7 +70,7 @@ int main() {
                                 cout << "Food types: Protein, Carbs, Dairy, Vegetables, Fruit, Dessert, Beverage, or other." << endl;
                                 cout << "Enter food type: ";
                                 cin >> foodType;
-
+                                // Checks if valid food type
                                 while (!food::isValidtype(foodType)) {
                                     cout << "Invalid food type. Please try again: " << endl;
                                     cin >> foodType;
@@ -86,7 +87,7 @@ int main() {
                                     cout << "Invalid amount of calories or stop eating so much! Please enter 0-5000: ";
                                     cin >> calories;
                                 }
-
+                                // After getting variables, enters it into array
                                 food tempFood(foodType, foodName);
                                 tempFood.getFoodlist().addcalorie(calories);
 
@@ -101,14 +102,14 @@ int main() {
                             if (mealCount == 0){
                                 cout << "Please add a meal" << endl;
                             }
-                            else{
+                            else{ // Used already declared print function to print
                                 for (int i = 0; i < mealCount; i++) {
                                     printmeal(mealArray[i]);
                                 }
                             }                            
                             break;
                         }
-                        case 3: {
+                        case 3: { // Shows total calories of all items enetred on array
                             double Total = calculateTotalCalories(mealArray, mealCount);
                             cout << "Total Calories: " << Total << endl;
                             break;
@@ -117,7 +118,7 @@ int main() {
                             if (mealCount == 0) {
                                 cout << "Please add a meal" << endl;
                             } 
-                            else {
+                            else { // Also used week 4 main file to help with this main section
                                 string target;
                                 cout << "Enter meal name to search for: ";
                                 cin.ignore();
@@ -133,7 +134,8 @@ int main() {
 
                                 if (found == -1) {
                                     cout << "Meal not found." << endl;
-                                } else {
+                                } 
+                                else {
                                     cout << "Found meal at index " << found << ": "
                                         << mealArray[found].getName() << endl;
                                 }
@@ -143,7 +145,7 @@ int main() {
                         case 5: {
                             if (mealCount == 0) {
                                 cout << "Please add a meal" << endl;
-                            } else {
+                            } else { // Automatically sorts the meals by their amount of calories using selection sort form week 4 lab
                                 sortMeals(mealArray, mealCount);
                                 cout << "Meals sorted by calories." << endl;
                             }
@@ -199,7 +201,7 @@ int main() {
                             cin >> calories;
 
                             while (!FoodarrayList::isValidcalorie(calories)) {
-                                cout << "Invalid calories. Enter 0-5000: ";
+                                cout << "Invalid calories, or stop eating so much! Enter 0-5000: ";
                                 cin >> calories;
                             }
                             cout << "Enter meal rating (1-5): ";
@@ -209,18 +211,18 @@ int main() {
                                 cout << "Invalid rating. Enter 1-5: ";
                                 cin >> foodrating;
                             }
-
+                            // Insterts new node with all the information.
                             LinkedList.insertFront(Food(foodType, foodName, calories, foodrating));
 
                             cout << "Meal added." << endl;
 
                             break;
                         }
-                        case 2: {
+                        case 2: { // Checks if list is empty
                             if (LinkedList.isEmpty()) {
                                 cout << "Please add a meal" << endl;
                             }
-                            else {
+                            else { // If not empty it prints all info in linked list
                                 LinkedList.printlistmeals();
                             }
                             break;
@@ -228,10 +230,10 @@ int main() {
                         case 3: {
                             string mealname;
 
-                            cout << "Enter name of meal to delete: ";
+                            cout << "Enter name of meal to mark eaten: ";
                             cin.ignore();
                             getline(cin, mealname);
-
+                            // Section to mark a meal eaten
                             if (LinkedList.markFoodeaten(mealname)) {
                                 cout << "Food marked as eaten." << endl;
                             }
@@ -241,7 +243,7 @@ int main() {
                             break;
                         }
                         case 4: {
-                            LinkedList.removeEatenMeals();
+                            LinkedList.removeEatenMeals(); // Removes all meals marked as eaten
                             cout << "All eaten meals removed" << endl;
 
                             break;
@@ -249,7 +251,7 @@ int main() {
                         case 5: {
                             LinkedList.clear();
                             cout << "All meals cleared" << endl;
-
+                            // Clears everything
                             break;
                         }
                     }
@@ -260,17 +262,17 @@ int main() {
             case 3: {
                 cout << "Read reccomended meal file selected" << endl;
 
-                Meals items[MAX_FOOD_ITEMS];
+                Meals items[MAX_FOOD_ITEMS]; // Influences from example from this project, and week 7 main.
                 int count = FoodReport::readFoodFile("data/DailyFood.txt", items, MAX_FOOD_ITEMS);
                 cout << "Read " << count << " items from DailyFood.txt" << endl;
                 cout << "Total calories reccomened per day: ";
                 cout << FoodReport::calculateTotalcalories(items, count) << endl;
-                cout << endl;
+                cout << endl; // Reads file and gives reccomended calories
                 
 
                 if (FoodReport::writeFoodReport("DailyFood.txt", items, count)) {
                     cout << "Report written to DailyFood.txt" << endl;
-                }
+                } // Writes a report file
 
                 break;
             }
@@ -281,7 +283,7 @@ int main() {
 
     cout << "Goodbye, thanks for looking!" << endl;
 }    
-                
+    // End of project            
 
 
 
@@ -293,7 +295,7 @@ int main() {
 
 
 
-
+// Kept for reference below to help with final project
 
 /*
 int m() {

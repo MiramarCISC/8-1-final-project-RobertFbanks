@@ -50,6 +50,7 @@ double FoodarrayList::getTotalcalories() const {
 
     return total;
 }
+// Goes through every itteration on the array and checks if the name is the same as the one the user entered.
 int FoodarrayList::findmeal(double target) const {
     for (int i = 0; i < count; i++) {
     if (foods[i] == target) {
@@ -59,22 +60,22 @@ int FoodarrayList::findmeal(double target) const {
 
 return -1;
 }
-void sortMeals(food mealArray[], int mealCount) {
-    for (int i = 0; i < mealCount - 1; i++) {
-        int smallest = i;
 
-        for (int j = i + 1; j < mealCount; j++) {
-            if (mealArray[j].getFoodlist().getTotalcalories() <
-                mealArray[smallest].getFoodlist().getTotalcalories()) {
-                smallest = j;
+// Selection sort from week 4 lab outfitted to work with this project
+void sortMeals(food mealArray[], int mealCount) {
+    for (int start = 0; start < mealCount - 1; start++) {
+        int minIndex = start;
+
+        for (int i = start + 1; i < mealCount; i++) {
+            if (mealArray[i].getFoodlist().getTotalcalories() < 
+                mealArray[minIndex].getFoodlist().getTotalcalories()) {
+                minIndex = i;
             }
         }
 
-        if (smallest != i) {
-            food temp = mealArray[i];
-            mealArray[i] = mealArray[smallest];
-            mealArray[smallest] = temp;
-        }
+        food temp = mealArray[start];
+        mealArray[start] = mealArray[minIndex];
+        mealArray[minIndex] = temp;
     }
 }
 
