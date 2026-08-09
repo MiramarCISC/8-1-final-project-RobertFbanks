@@ -8,7 +8,7 @@ using namespace std;
 int main() {
     cout << "This is my final project for CISC 192, a meal tracker." << endl;
     cout << "There are 2 versions, one with a normal array and one with a linked list." << endl;
-    cout << "Meals can be split into separete parts depending on food category." << endl;
+    cout << "Meals can be split into separete parts depending on food category, lick chicken and rice would be seperate" << endl;
     cout << endl;
 
     // Set all choices and variables only used in main.
@@ -19,7 +19,7 @@ int main() {
     int mealCount = 0;
     int listchoice = -1;
 
-    do {
+    do { //Main program choices that branch off into different swtiches, each case having another switch inside
         cout << "Enter 1 for array based tracker" << endl;
         cout << "Enter 2 for linked list based tracker" << endl;
         cout << "Enter 3 to read reccomended meal input file and write report" << endl;
@@ -159,7 +159,7 @@ int main() {
                 break;
             }
             case 2: {
-                do {
+                do { // Linked list based tracker
                     cout << "Linked list meal tracker selected" << endl;
                     cout << endl;
                     cout << "Enter 1 to add a meal" << endl;
@@ -284,110 +284,3 @@ int main() {
     cout << "Goodbye, thanks for looking!" << endl;
 }    
     // End of project            
-
-
-
-
-
-
-
-
-
-
-
-// Kept for reference below to help with final project
-
-/*
-int m() {
-    int choice = -1;
-
-    cout << "CISC 192 Final Project Sample" << endl;
-    cout << "Sample code is provided only as an example." << endl;
-    cout << "Delete or replace the sample code before final submission." << endl;
-
-    do {
-        printMenu();
-        cin >> choice;
-
-        while (!isValidMenuChoice(choice)) {
-            cout << "Invalid choice. Enter 0-4: ";
-            cin >> choice;
-        }
-
-        switch (choice) {
-            case 1: {
-                Student student("A123", "Alex");
-                student.getScoreList().addScore(90.0);
-                student.getScoreList().addScore(80.0);
-                student.getScoreList().addScore(100.0);
-                student.getScoreList().sortAscending();
-
-                printStudent(student);
-                cout << "Score 100 found at index "
-                     << student.getScoreList().findScore(100.0)
-                     << endl;
-
-                break;
-            }
-
-            case 2: {
-                TaskList tasks;
-                tasks.insertFront(Task("study", 5));
-                tasks.insertFront(Task("project", 4));
-                tasks.markTaskComplete("study");
-
-                cout << "Task count: " << tasks.countTasks() << endl;
-                cout << "Removed completed tasks: "
-                     << tasks.removeCompletedTasks()
-                     << endl;
-                cout << "Remaining task count: " << tasks.countTasks() << endl;
-
-                break;
-            }
-
-            case 3: {
-                InventoryItem items[MAX_INVENTORY_ITEMS];
-                int count = InventoryReport::readInventoryFile(
-                    "data/inventory.txt",
-                    items,
-                    MAX_INVENTORY_ITEMS
-                );
-
-                cout << "Read " << count << " inventory item(s)." << endl;
-                cout << "Total inventory value: "
-                     << InventoryReport::calculateTotalInventoryValue(items, count)
-                     << endl;
-
-                if (InventoryReport::writeInventoryReport(
-                        "inventory_report.txt",
-                        items,
-                        count
-                    )) {
-                    cout << "Report written to inventory_report.txt" << endl;
-                }
-
-                break;
-            }
-
-            case 4:
-                cout << "Use this sample only as an example. "
-                     << "Delete or replace sample code before submission."
-                     << endl;
-                break;
-
-            case 0:
-                cout << "Goodbye!" << endl;
-                break;
-
-            default:
-                cout << "Unexpected choice." << endl;
-                break;
-        }
-
-    } 
-    while (choice != 0);
-
-    return 0;
-}
-
-*/
