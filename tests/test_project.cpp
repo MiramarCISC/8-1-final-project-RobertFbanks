@@ -70,10 +70,10 @@ void testWeek4ArraysSearchingSorting() {
     // This section was a pain in the A**. Sorry if the test isn't great here, I tried.
     // I've spend a good bit on this one section just to get it to work. Make test sections are not my specialty
     FoodarrayList calories;
-    calories.addcalorie(89.0);
-    calories.addcalorie(73.0);
-    calories.addcalorie(100.0);
-    calories.addcalorie(94.0);
+    calories.addcalorie(890.0);
+    calories.addcalorie(730.0);
+    calories.addcalorie(200.0);
+    calories.addcalorie(640.0);
 
     assert(nearlyEqual(calories.getcalorie(0), 890.0));
     assert(nearlyEqual(calories.getcalorie(1), 730.0));
