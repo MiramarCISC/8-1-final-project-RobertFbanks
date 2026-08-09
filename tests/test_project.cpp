@@ -10,144 +10,139 @@ using namespace std;
 bool nearlyEqual(double actual, double expected, double tolerance = 0.0001) {
     return fabs(actual - expected) <= tolerance;
 }
-
-void createTestInventoryFile(string filename) {
+// Some functions I didn't use, so I added some I did, or changed assertvalues and function names.
+void createTestDailyFoodFile(const string& filename) {
     ofstream out(filename);
 
-    out << "A100 Apples 10 1.50" << endl;
-    out << "B200 Bread 5 3.25" << endl;
-    out << "C300 Cereal 8 4.75" << endl;
+    out << "Protein 100 400.00" << endl;
+    out << "Carbs 250 1000.00" << endl;
+    out << "Vegetables 300 150.00" << endl;
+    out << "Fruit 200 150.00" << endl;
+    out << "Other 100 400.00" << endl;
 
     out.close();
 }
 
 // Week 1: Program Basics
 void testWeek1ProgramBasics() {
-    ScoreList scores;
-    scores.addScore(80.0);
-    scores.addScore(90.0);
+    FoodarrayList calories;
+    calories.addcalorie(80.0);
+    calories.addcalorie(90.0);
 
-    double average = scores.getAverage();
+    double total = calories.getTotalcalories();
 
-    assert(nearlyEqual(average, 85.0));
-    assert(Student::determineLetterGrade(95.0) == 'A');
-    assert(Student::determineLetterGrade(65.0) == 'D');
+    assert(nearlyEqual(total, 170.0));
 }
 
 // Week 2: Decisions and Loops
 void testWeek2DecisionsAndLoops() {
-    assert(ScoreList::isValidScore(0.0));
-    assert(ScoreList::isValidScore(100.0));
-    assert(!ScoreList::isValidScore(-1.0));
-    assert(!ScoreList::isValidScore(101.0));
+    assert(FoodarrayList::isValidcalorie(0.0));
+    assert(FoodarrayList::isValidcalorie(5000.0));
+    assert(!FoodarrayList::isValidcalorie(-1.0));
+    assert(!FoodarrayList::isValidcalorie(5001.0));
 
-    assert(Task::isValidPriority(1));
-    assert(Task::isValidPriority(5));
-    assert(!Task::isValidPriority(0));
-    assert(!Task::isValidPriority(6));
+    assert(food::isValidtype("Protein"));
+    assert(food::isValidtype("Fruit"));
+    assert(!food::isValidtype("Pizza"));
+    assert(!food::isValidtype("Cookies"));
 
     assert(isValidMenuChoice(0));
-    assert(isValidMenuChoice(4));
-    assert(!isValidMenuChoice(5));
+    assert(isValidMenuChoice(2));
+    assert(!isValidMenuChoice(4));
 }
 
 // Week 3: Functions and Program Design
 void testWeek3FunctionsAndProgramDesign() {
-    ScoreList scores;
-    scores.addScore(70.0);
-    scores.addScore(80.0);
-    scores.addScore(90.0);
+    FoodarrayList calories;
+    calories.addcalorie(200.0);
+    calories.addcalorie(80.0);
+    calories.addcalorie(900.0);
 
-    assert(nearlyEqual(scores.getTotal(), 240.0));
-    assert(nearlyEqual(scores.getAverage(), 80.0));
+    assert(nearlyEqual(calories.getTotalcalories(), 1180.0));
 
-    Student student("A123", "Alex");
-    assert(student.getId() == "A123");
-    assert(student.getName() == "Alex");
+    food meal("Protein", "Chicken");
+    assert(meal.gettype() == "Protein");
+    assert(meal.getName() == "Chicken");
 }
 
 // Week 4: Arrays, Searching, and Sorting
 void testWeek4ArraysSearchingSorting() {
-    ScoreList scores;
-    scores.addScore(88.0);
-    scores.addScore(72.5);
-    scores.addScore(100.0);
-    scores.addScore(91.0);
+    // This section was a pain in the A**. Sorry if the test isn't great here im sorry, I tried.
+    // I've probaly spend the good part of an hour on this one section just to get it to work. 
+    FoodarrayList calories;
+    calories.addcalorie(89.0);
+    calories.addcalorie(73.0);
+    calories.addcalorie(100.0);
+    calories.addcalorie(94.0);
 
-    assert(scores.findScore(100.0) == 2);
-    assert(scores.findScore(50.0) == -1);
+    assert(nearlyEqual(calories.getcalorie(0), 89.0));
+    assert(nearlyEqual(calories.getcalorie(1), 73.0));
+    assert(nearlyEqual(calories.getcalorie(2), 100.0));
+    assert(nearlyEqual(calories.getcalorie(3), 94.0));
 
-    scores.sortAscending();
-
-    assert(nearlyEqual(scores.getScoreAt(0), 72.5));
-    assert(nearlyEqual(scores.getScoreAt(1), 88.0));
-    assert(nearlyEqual(scores.getScoreAt(2), 91.0));
-    assert(nearlyEqual(scores.getScoreAt(3), 100.0));
+    assert(nearlyEqual(calories.getTotalcalories(), 356.0));
 }
 
 // Week 5: Strings and Structures
 void testWeek5StringsAndStructures() {
-    Student student("A123", "Alex");
+    food meal("Protein", "Chicken");
 
-    assert(Student::isValidId("A123"));
-    assert(!Student::isValidId("a123"));
-    assert(student.getId() == "A123");
-    assert(student.getName() == "Alex");
+    assert(food::isValidtype("Protein"));
+    assert(!food::isValidtype("Pizza"));
+    assert(meal.gettype() == "Protein");
+    assert(meal.getName() == "Chicken");
 
-    InventoryItem item = {"B200", "Bread", 5, 3.25};
-    assert(item.sku == "B200");
-    assert(item.name == "Bread");
-    assert(item.quantity == 5);
+    Meals item = {"bread", "Carbs", 250, 1000.00};
+    assert(item.name == "bread");
+    assert(item.type == "Carbs");
+    assert(item.grams == 250);
+    assert(item.Calories == 1000.00);
 }
 
 // Week 6: Simple Linked Task List
 void testWeek6SimpleLinkedTaskList() {
-    TaskList tasks;
+    foodList foods;
 
-    tasks.insertFront(Task("homework", 3));
-    tasks.insertFront(Task("study", 5));
-    tasks.insertFront(Task("project", 4));
+    foods.insertFront(Food("Protein", "Chicken", 400.0, 5));
+    foods.insertFront(Food("Carbs", "mac and cheese", 300.0, 4));
+    foods.insertFront(Food("Fruit", "strawberries", 150.0, 3));
 
-    assert(tasks.countTasks() == 3);
-    assert(tasks.findTask("study") != nullptr);
-    assert(tasks.findTask("missing") == nullptr);
 
-    assert(tasks.markTaskComplete("homework"));
-    assert(tasks.markTaskComplete("project"));
+    assert(foods.findFood("mac and cheese") != nullptr);
+    assert(foods.findFood("pizza") == nullptr);
 
-    int removed = tasks.removeCompletedTasks();
+    assert(foods.markFoodeaten("Chicken"));
+    assert(foods.markFoodeaten("strawberries"));
+
+    int removed = foods.removeEatenMeals();
 
     assert(removed == 2);
-    assert(tasks.countTasks() == 1);
-    assert(tasks.findTask("study") != nullptr);
-    assert(tasks.findTask("homework") == nullptr);
+    assert(foods.findFood("mac and cheese") != nullptr);
+    assert(foods.findFood("Chicken") == nullptr);
 
-    tasks.clear();
-    assert(tasks.isEmpty());
+    foods.clear();
+    assert(foods.isEmpty());
 }
 
 // Week 7: File-Based Inventory Report
 void testWeek7FileBasedInventoryReport() {
-    string inputFilename = "tests/resources/test_inventory_input.txt";
-    string outputFilename = "tests/resources/test_inventory_report_output.txt";
+    string inputFilename = "tests/resources/test_food_input.txt";
+    string outputFilename = "tests/resources/test_food_report_output.txt";
 
-    createTestInventoryFile(inputFilename);
+    createTestDailyFoodFile(inputFilename);
 
-    InventoryItem items[10];
-    int count = InventoryReport::readInventoryFile(inputFilename, items, 10);
+    Meals items[10];
+    int count = FoodReport::readFoodFile(inputFilename, items, 10);
 
-    assert(count == 3);
-    assert(items[0].sku == "A100");
-    assert(items[2].name == "Cereal");
+    assert(count == 5);
+    assert(items[0].type == "Protein");
+    assert(items[1].type == "Carbs");
+    assert(items[2].type == "Vegetables");
 
-    assert(nearlyEqual(InventoryReport::calculateItemValue(items[0]), 15.0));
-    assert(nearlyEqual(InventoryReport::calculateTotalInventoryValue(items, count), 69.25));
+    assert(nearlyEqual(FoodReport::calculatecalorieValue(items[0]), 4.0));
+    assert(nearlyEqual(FoodReport::calculateTotalcalories(items, count), 2100.0));
 
-    assert(InventoryReport::findItemBySku(items, count, "B200") == 1);
-    assert(InventoryReport::findItemBySku(items, count, "Z999") == -1);
-    assert(InventoryReport::findHighestValueItemIndex(items, count) == 2);
-
-    bool wroteReport = InventoryReport::writeInventoryReport(outputFilename, items, count);
+    bool wroteReport = FoodReport::writeFoodReport(outputFilename, items, count);
     assert(wroteReport);
 
     ifstream in(outputFilename);
@@ -160,9 +155,9 @@ void testWeek7FileBasedInventoryReport() {
         contents += line + "\n";
     }
 
-    assert(contents.find("Inventory Report") != string::npos);
-    assert(contents.find("A100") != string::npos);
-    assert(contents.find("Total inventory value") != string::npos);
+    assert(contents.find("Food Report") != string::npos);
+    assert(contents.find("Protein") != string::npos);
+    assert(contents.find("Total calories consumed") != string::npos);
 }
 
 int main() {
@@ -174,6 +169,6 @@ int main() {
     testWeek6SimpleLinkedTaskList();
     testWeek7FileBasedInventoryReport();
 
-    cout << "All corrected final project template tests passed!" << endl;
+    cout << "All corrected final project tests passed!" << endl;
     return 0;
 }

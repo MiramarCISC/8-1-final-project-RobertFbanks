@@ -6,222 +6,210 @@
 using namespace std;
 
 // ===============================
-// ScoreList
+// Arraylist
 // ===============================
 
-ScoreList::ScoreList() {
+FoodarrayList::FoodarrayList() {
     count = 0;
 
-    for (int i = 0; i < 10; i++) {
-        scores[i] = 0.0;
+    for (int i = 0; i < 25; i++) {
+        foods[i] = 0.0;
     }
-}
+} // Makes array and sets every i value to 0 until used.
 
-bool ScoreList::addScore(double score) {
-    if (!isValidScore(score) || count >= 10) {
+// Checks if the calorie amount is the correct size and if there is enough sopace in the array.
+bool FoodarrayList::addcalorie(double calorie) {
+    if (!isValidcalorie(calorie) || count >= 25) {
         return false;
     }
 
-    scores[count] = score;
+    foods[count] = calorie;
     count++;
 
     return true;
 }
-
-int ScoreList::getCount() const {
+// gets the count of which space the program is in the array.
+int FoodarrayList::getCount() const {
     return count;
 }
-
-double ScoreList::getScoreAt(int index) const {
+// gets the value of calories at an index.
+double FoodarrayList::getcalorie(int index) const {
     if (index < 0 || index >= count) {
         return 0.0;
     }
 
-    return scores[index];
+    return foods[index];
 }
-
-double ScoreList::getTotal() const {
+// Goes through every iteration in the array and adds the calories.
+double FoodarrayList::getTotalcalories() const {
     double total = 0.0;
 
     for (int i = 0; i < count; i++) {
-        total += scores[i];
+        total += foods[i];
     }
 
     return total;
 }
-
-double ScoreList::getAverage() const {
-    if (count == 0) {
-        return 0.0;
-    }
-
-    return getTotal() / count;
-}
-
-int ScoreList::findScore(double target) const {
+int FoodarrayList::findmeal(double target) const {
     for (int i = 0; i < count; i++) {
-        if (scores[i] == target) {
-            return i;
-        }
+    if (foods[i] == target) {
+    return i;
     }
-
-    return -1;
 }
 
-void ScoreList::sortAscending() {
-    for (int start = 0; start < count - 1; start++) {
-        int minIndex = start;
+return -1;
+}
+void sortMeals(food mealArray[], int mealCount) {
+    for (int i = 0; i < mealCount - 1; i++) {
+        int smallest = i;
 
-        for (int i = start + 1; i < count; i++) {
-            if (scores[i] < scores[minIndex]) {
-                minIndex = i;
+        for (int j = i + 1; j < mealCount; j++) {
+            if (mealArray[j].getFoodlist().getTotalcalories() <
+                mealArray[smallest].getFoodlist().getTotalcalories()) {
+                smallest = j;
             }
         }
 
-        double temp = scores[start];
-        scores[start] = scores[minIndex];
-        scores[minIndex] = temp;
+        if (smallest != i) {
+            food temp = mealArray[i];
+            mealArray[i] = mealArray[smallest];
+            mealArray[smallest] = temp;
+        }
     }
 }
 
-bool ScoreList::isValidScore(double score) {
-    return score >= 0.0 && score <= 100.0;
+// calculates total calorie value in main
+double calculateTotalCalories(const food mealArray[], int mealCount) {
+    if (mealArray == nullptr || mealCount <= 0) {
+        return 0.0;
+    }
+
+    double Total = 0.0;
+    for (int i = 0; i < mealCount; i++) {
+        Total += mealArray[i].getFoodlist().getTotalcalories();
+    }
+
+    return Total;
+}
+// hecks if calorie input is in a decent range.
+bool FoodarrayList::isValidcalorie(double food) {
+    
+    if (food >= 0.0 && food <= 5000.0){
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 // ===============================
-// Student
+// Array
 // ===============================
-
-Student::Student() {
-    id = "";
+// initializes food object.
+food::food() {
+    type = "";
     name = "";
 }
-
-Student::Student(string studentId, string studentName) {
-    id = studentId;
-    name = studentName;
+// Creates food type and name.
+food::food(string foodtype, string foodname) {
+    type = foodtype;
+    name = foodname;
 }
-
-string Student::getId() const {
-    return id;
+// Returns food type
+string food::gettype() const {
+    return type;
 }
-
-string Student::getName() const {
+// Returns food name
+string food::getName() const {
     return name;
 }
-
-ScoreList& Student::getScoreList() {
-    return scoreList;
+// Returns food calorie list
+FoodarrayList& food::getFoodlist() {
+    return foodlist;
 }
-
-const ScoreList& Student::getScoreList() const {
-    return scoreList;
+const FoodarrayList& food::getFoodlist() const {
+    return foodlist;
 }
-
-double Student::getAverage() const {
-    return scoreList.getAverage();
-}
-
-char Student::getLetterGrade() const {
-    return determineLetterGrade(getAverage());
-}
-
-bool Student::isValidId(string id) {
-    return id.length() >= 3 && id[0] >= 'A' && id[0] <= 'Z';
-}
-
-char Student::determineLetterGrade(double average) {
-    if (average >= A_MINIMUM) {
-        return 'A';
-    } else if (average >= B_MINIMUM) {
-        return 'B';
-    } else if (average >= C_MINIMUM) {
-        return 'C';
-    } else if (average >= D_MINIMUM) {
-        return 'D';
-    } else {
-        return 'F';
+// Determines if the food type entered is good.
+bool food::isValidtype(string type) {
+    if (type == "Protein" || type == "Dairy" || type == "Carbs" || type == "Vegetables" || type == "Fruit" || type == "Beverage" || type == "Dessert" || type == "Other"){
+        return true;
     }
+    else {
+        return false;
+    }
+    
 }
 
 // ===============================
-// Task and TaskList
+// Linked list
 // ===============================
-
-Task::Task() {
-    description = "";
-    priority = 1;
-    completed = false;
+// Stats Food for linked list
+Food::Food() {
+    type = "";
+    name = "";
+    calories = 0.0;
+    mealrating = 0;
+    eatentoday = false;
 }
-
-Task::Task(string taskDescription, int taskPriority) {
-    description = taskDescription;
-
-    if (isValidPriority(taskPriority)) {
-        priority = taskPriority;
-    } else {
-        priority = 1;
+// Defines everything used in the linked list.
+Food::Food(std::string foodtype, std::string foodname, double foodcalories, int taskmealrating) {
+    type = foodtype;
+    name = foodname;
+    calories = foodcalories;
+    mealrating = taskmealrating;
+    eatentoday = false;
+}
+// gets the linked list name
+string Food::getName() const {
+    return name;
+}
+// Gets the mealrating.
+int Food::getmealrating() const {
+    return mealrating;
+}
+// Returns if eaten.
+bool Food::iseaten() const {
+    return eatentoday;
+}
+// used by mark food eaten to mark trur.
+void Food::markEaten() {
+    eatentoday = true;
+}
+// Determines if the inputed rating is valid.
+bool Food::isValidmealrating(int mealrating) {
+    if (mealrating >= 1 && mealrating <= 5){
+        return true;
     }
-
-    completed = false;
+    else {
+        return false;
+    }
 }
-
-string Task::getDescription() const {
-    return description;
-}
-
-int Task::getPriority() const {
-    return priority;
-}
-
-bool Task::isCompleted() const {
-    return completed;
-}
-
-void Task::markComplete() {
-    completed = true;
-}
-
-bool Task::isValidPriority(int priority) {
-    return priority >= 1 && priority <= 5;
-}
-
-TaskNode::TaskNode(Task task) {
-    data = task;
+// Creates linked list node
+FoodNode::FoodNode(Food food) {
+    data = food;
     next = nullptr;
 }
-
-TaskList::TaskList() {
+// Used to set head to nullptr
+foodList::foodList() {
     head = nullptr;
 }
-
-TaskList::~TaskList() {
+// Clears linked list
+foodList::~foodList() {
     clear();
 }
-
-void TaskList::insertFront(Task task) {
-    TaskNode* newNode = new TaskNode(task);
+// Adds new node
+void foodList::insertFront(Food food) {
+    FoodNode* newNode = new FoodNode(food);
     newNode->next = head;
     head = newNode;
 }
-
-int TaskList::countTasks() const {
-    int count = 0;
-    const TaskNode* current = head;
-
-    while (current != nullptr) {
-        count++;
-        current = current->next;
-    }
-
-    return count;
-}
-
-TaskNode* TaskList::findTask(string description) {
-    TaskNode* current = head;
+// Returns a pointer to the node with the searched for name.
+const FoodNode* foodList::findFood(string name) const {
+    const FoodNode* current = head;
 
     while (current != nullptr) {
-        if (current->data.getDescription() == description) {
+        if (current->data.getName() == name) {
             return current;
         }
 
@@ -230,120 +218,144 @@ TaskNode* TaskList::findTask(string description) {
 
     return nullptr;
 }
-
-const TaskNode* TaskList::findTask(string description) const {
-    const TaskNode* current = head;
-
+// Non constant version of findFood.
+FoodNode* foodList::findFood(string name) {
+    FoodNode* current = head;
     while (current != nullptr) {
-        if (current->data.getDescription() == description) {
+        if (current->data.getName() == name) {
             return current;
         }
-
         current = current->next;
     }
-
     return nullptr;
 }
-
-bool TaskList::markTaskComplete(string description) {
-    TaskNode* found = findTask(description);
+// Gets type.
+string Food::getType() const {
+    return type;
+}
+// Gets calories
+double Food::getCalories() const {
+    return calories;
+}
+// Marks the food eaten if it was found.
+bool foodList::markFoodeaten(string name) {
+    FoodNode* found = findFood(name);
 
     if (found == nullptr) {
         return false;
     }
-
-    found->data.markComplete();
-    return true;
-}
-
-int TaskList::removeCompletedTasks() {
-    int removed = 0;
-
-    while (head != nullptr && head->data.isCompleted()) {
-        TaskNode* nodeToRemove = head;
-        head = head->next;
-        delete nodeToRemove;
-        removed++;
+    else{
+        found->data.markEaten();
+        return true;
     }
+}
+// Safely removes all meals that are marked eaten.
+int foodList::removeEatenMeals() {
+    int removed = 0;
+    FoodNode* current = head;
+    FoodNode* previous = nullptr;
 
-    TaskNode* current = head;
+    while (current != nullptr) {
+        if (current->data.iseaten()) {
+            if (previous == nullptr) {
+                head = current->next;
+            } 
+            else {
+                previous->next = current->next;
+            }
 
-    while (current != nullptr && current->next != nullptr) {
-        if (current->next->data.isCompleted()) {
-            TaskNode* nodeToRemove = current->next;
-            current->next = nodeToRemove->next;
-            delete nodeToRemove;
+            FoodNode* temp = current;
+            current = current->next;
+            delete temp;
             removed++;
-        } else {
+        } 
+        else {
+            previous = current;
             current = current->next;
         }
     }
 
     return removed;
 }
-
-void TaskList::clear() {
-    TaskNode* current = head;
+// Deletes every dynamically allocated node.
+void foodList::clear() {
+    FoodNode* current = head;
 
     while (current != nullptr) {
-        TaskNode* nextNode = current->next;
+        FoodNode* nextNode = current->next;
         delete current;
         current = nextNode;
     }
 
     head = nullptr;
 }
-
-bool TaskList::isEmpty() const {
-    return head == nullptr;
+// Checks weather the linked list is empty.
+bool foodList::isEmpty() const {
+    if (head == nullptr){
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 // ===============================
-// InventoryReport
+// FoodReport
 // ===============================
-
-bool InventoryReport::isValidQuantity(int quantity) {
-    return quantity >= 0;
+// Checks if grams is greater or equal to zero.
+bool FoodReport::isValidgrams(int grams) {
+    if (grams >= 0){
+        return true;
+    }
+    else {
+        return false;
+    }
 }
-
-bool InventoryReport::isValidPrice(double price) {
-    return price >= 0.0;
+// Checks if calories is greater or equal to zero.
+bool FoodReport::isValidCalories(double calories) {
+    if (calories >= 0.0){
+        return true;
+    }
+    else {
+        return false;
+    }
 }
-
-double InventoryReport::calculateItemValue(const InventoryItem& item) {
-    if (!isValidQuantity(item.quantity) || !isValidPrice(item.price)) {
+// Calculates calories / gram.
+double FoodReport::calculatecalorieValue(const Meals& item) {
+    if (!isValidgrams(item.grams) || !isValidCalories(item.Calories)) {
         return 0.0;
     }
 
-    return item.quantity * item.price;
+    return item.Calories / item.grams;
 }
-
-int InventoryReport::readInventoryFile(string filename, InventoryItem items[], int maxItems) {
-    if (items == nullptr || maxItems <= 0) {
+// Reads the file and checks if it opens and if the values are valid.
+int FoodReport::readFoodFile(string filename, Meals items[], int MAX_FOOD_ITEMS) {
+    if (items == nullptr || MAX_FOOD_ITEMS <= 0) {
         return 0;
     }
 
     ifstream in(filename);
 
     if (!in.is_open()) {
+        cout << "Error opening file: " << filename << endl;
         return 0;
     }
 
     int count = 0;
-    InventoryItem item;
+    Meals item;
 
-    while (count < maxItems &&
-           in >> item.sku >> item.name >> item.quantity >> item.price) {
-        if (isValidQuantity(item.quantity) && isValidPrice(item.price)) {
+    while (count < MAX_FOOD_ITEMS &&
+           in >> item.type >> item.grams >> item.Calories) {
+        if (isValidgrams(item.grams) && isValidCalories(item.Calories)) {
             items[count] = item;
             count++;
         }
     }
-
+    in.close();
     return count;
 }
-
-bool InventoryReport::writeInventoryReport(string filename, const InventoryItem items[], int count) {
+// Writes the report to a file.
+bool FoodReport::writeFoodReport(string filename, const Meals items[], int count) {
     if (items == nullptr || count < 0) {
         return false;
     }
@@ -355,25 +367,25 @@ bool InventoryReport::writeInventoryReport(string filename, const InventoryItem 
     }
 
     out << fixed << setprecision(2);
-    out << "Inventory Report" << endl;
-    out << "SKU Name Quantity Price Value" << endl;
+    out << "Food Report" << endl;
+    out << "Type, Grams, Calories, Calories per Gram" << endl;
 
     for (int i = 0; i < count; i++) {
-        out << items[i].sku << " "
-            << items[i].name << " "
-            << items[i].quantity << " "
-            << items[i].price << " "
-            << calculateItemValue(items[i]) << endl;
+        out << items[i].type << " "
+            << items[i].grams << " "
+            << items[i].Calories << " "
+            << calculatecalorieValue(items[i]) << endl;
     }
 
-    out << "Total inventory value: "
-        << calculateTotalInventoryValue(items, count)
+    out << "Total calories consumed: "
+        << calculateTotalcalories(items, count)
         << endl;
 
+    out.close();
     return true;
 }
-
-double InventoryReport::calculateTotalInventoryValue(const InventoryItem items[], int count) {
+// Calculates the total calories in the file.
+double FoodReport::calculateTotalcalories(const Meals items[], int count) {
     if (items == nullptr || count <= 0) {
         return 0.0;
     }
@@ -381,65 +393,61 @@ double InventoryReport::calculateTotalInventoryValue(const InventoryItem items[]
     double total = 0.0;
 
     for (int i = 0; i < count; i++) {
-        total += calculateItemValue(items[i]);
+        total += items[i].Calories;
     }
 
     return total;
 }
 
-int InventoryReport::findItemBySku(const InventoryItem items[], int count, string sku) {
-    if (items == nullptr || count <= 0) {
-        return -1;
-    }
-
-    for (int i = 0; i < count; i++) {
-        if (items[i].sku == sku) {
-            return i;
-        }
-    }
-
-    return -1;
-}
-
-int InventoryReport::findHighestValueItemIndex(const InventoryItem items[], int count) {
-    if (items == nullptr || count <= 0) {
-        return -1;
-    }
-
-    int highestIndex = 0;
-
-    for (int i = 1; i < count; i++) {
-        if (calculateItemValue(items[i]) > calculateItemValue(items[highestIndex])) {
-            highestIndex = i;
-        }
-    }
-
-    return highestIndex;
-}
-
 // ===============================
 // Menu helpers
 // ===============================
-
+// Determines if the menu choice is valid.
 bool isValidMenuChoice(int choice) {
-    return choice >= 0 && choice <= 4;
+    if (choice >= 0 && choice <= 3) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
-
-void printMenu() {
-    cout << endl;
-    cout << "Final Project Sample Menu" << endl;
-    cout << "1. Demonstrate student scores" << endl;
-    cout << "2. Demonstrate linked task list" << endl;
-    cout << "3. Demonstrate inventory report" << endl;
-    cout << "4. Show instructions" << endl;
-    cout << "0. Exit" << endl;
-    cout << "Choice: ";
+// Determines if the array choice is valid.
+bool isValidMenuarrayChoice(int arraychoice) {
+    if (arraychoice >= 0 && arraychoice <= 5) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
-
-void printStudent(const Student& student) {
-    cout << student.getId() << " "
-         << student.getName() << " "
-         << "Average: " << student.getAverage() << " "
-         << "Grade: " << student.getLetterGrade()
+// Determines if the linked list choice is valid.
+bool isValidMenulistChoice(int listchoice) {
+    if (listchoice >= 0 && listchoice <= 5) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+// Used to print the info on the array.
+void printmeal(const food& meal) {
+    cout << "Type: " << meal.gettype() 
+         << ", Name: " << meal.getName() 
+         << ", Calories: " << meal.getFoodlist().getcalorie(0) 
          << endl;
+}
+// Prints food list meals.
+void foodList::printlistmeals() const {
+    const FoodNode* current = head;
+
+    while (current != nullptr) {
+        cout << "Type: " << current->data.getType()
+             << ", Name: " << current->data.getName()
+             << ", Calories: " << current->data.getCalories()
+             << ", Rating: " << current->data.getmealrating()
+             << ", Eaten Today: " << (current->data.iseaten() ? "Yes" : "No")
+             << endl;
+
+        current = current->next;
+    }
 }

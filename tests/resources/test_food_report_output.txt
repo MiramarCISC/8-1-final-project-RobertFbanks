@@ -1,0 +1,8 @@
+Food Report
+Type, Grams, Calories, Calories per Gram
+Protein 100 400.00 4.00
+Carbs 250 1000.00 4.00
+Vegetables 300 150.00 0.50
+Fruit 200 150.00 0.75
+Other 100 400.00 4.00
+Total calories consumed: 2100.00
